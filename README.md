@@ -6,9 +6,6 @@
 
 Predicts Body Mass Index (BMI) from a single facial photograph using deep-learning-based computer vision: an EfficientNetB3 backbone fine-tuned via transfer learning for facial feature extraction, followed by an ensemble of classical regression models.
 
-Course project for **ADSP 31018: Machine Learning II**, University of Chicago (May 2025).
-Team: Amulya Jayanti, Halleluya Mengesha, Hira Stanley, Sami Naeem, Vaishnavi Kokadwar.
-
 ---
 
 ## Project Background
@@ -169,14 +166,6 @@ VotingRegressor
 | `is_training` | Pre-defined split flag (1 = train, 0 = test) |
 
 **Split after filtering missing images:** 3,210 training images / 752 test images (pre-defined in the CSV, matching the paper's subject-disjoint protocol)
-
----
-
-## Assignment Deliverables
-
-1. **Web API for real-time BMI prediction** — the trained model is exported as a TFLite feature extractor + joblib regressor for lightweight deployment (see [Deployment](#deployment))
-2. **Write-up** — full experimental documentation in the accompanying notebook
-3. **Final presentation / live demo** — presented using saved model inference (`BMI_Prediction- Final presentation.pdf`)
 
 ---
 
