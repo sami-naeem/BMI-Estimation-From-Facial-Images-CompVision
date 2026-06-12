@@ -1,4 +1,4 @@
-# BMI Estimation from Facial Images — Replicating Face-to-BMI with Modern Computer Vision
+# BMI Estimation from Facial Images with Computer Vision
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![TensorFlow/Keras](https://img.shields.io/badge/TensorFlow%2FKeras-Deep_Learning-orange)
