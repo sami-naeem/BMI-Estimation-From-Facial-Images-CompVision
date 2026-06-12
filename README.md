@@ -1,38 +1,13 @@
 # BMI Estimation from Facial Images — Replicating Face-to-BMI with Modern Computer Vision
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-Keras-orange)
+![TensorFlow/Keras](https://img.shields.io/badge/TensorFlow%2FKeras-Deep_Learning-orange)
+![EfficientNet](https://img.shields.io/badge/EfficientNet_B0--B7-Transfer_Learning-blueviolet)
+![Keras Preprocessing](https://img.shields.io/badge/Keras-Image_Preprocessing_%26_Augmentation-red)
+![TensorFlow Lite](https://img.shields.io/badge/TensorFlow_Lite-Quantization-yellow)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 Predicts Body Mass Index (BMI) from a single facial photograph using deep-learning-based computer vision: an EfficientNetB3 backbone fine-tuned via transfer learning for facial feature extraction, followed by an ensemble of classical regression models.
-
----
-
-## Tech Stack
-
-### Computer Vision / Deep Learning
-
-- **TensorFlow / Keras** — core deep learning framework for the entire CV stage
-- **EfficientNet (B0–B7)** via `tensorflow.keras.applications` — pre-trained ImageNet backbones for transfer learning, with `efficientnet.preprocess_input` for model-specific normalization
-- **Keras image preprocessing & augmentation** — `ImageDataGenerator` and `load_img` for image loading, resizing to native resolution, and augmentation (rotation, shift, zoom, horizontal flip)
-- **TensorFlow Lite** — post-training quantization and `.tflite` export of the feature extractor for lightweight deployment
-
-### Machine Learning — regression on CNN features
-
-- **scikit-learn** — Ridge, SVR, Random Forest, KNN, MLP, `VotingRegressor` ensemble, plus train/test utilities, metrics, imputation, and pipelines
-- **XGBoost**, **LightGBM**, **CatBoost** — gradient-boosting regressors
-
-### Data & Evaluation
-
-- **NumPy** — float32 4D image tensors and feature vectors
-- **pandas** — labels CSV and results handling
-- **SciPy** — `pearsonr` (the paper's headline metric)
-
-### Visualization & Utilities
-
-- **Matplotlib** — training curves and result plots
-- **joblib** — persisting the Ridge regressor artifact
-- **Google Colab** — training environment (GPU runtime, Drive mounting)
 
 ---
 
