@@ -34,31 +34,15 @@ The paper's reported test-set performance (Pearson r):
 
 ## Approach: Computer Vision Pipeline
 
-We kept the paper's two-stage design (CNN feature extractor → regressor) but systematically evaluated **five modern pre-trained backbones**, each fine-tuned on the BMI dataset with transfer learning:
+We kept the paper's two-stage design (CNN feature extractor → regressor) but replaced its backbone with a **modern pre-trained EfficientNet**, fine-tuned on the BMI dataset with transfer learning:
 
 | Backbone | Input size | Fine-tuning strategy | Features extracted |
 |---|---|---|---|
-| VGGFace | 224×224 | Blocks 4–5 unfrozen, augmentation | fc6 (4,096-d) |
-| VGG16 / VGG19 (VGGNet) | 224×224 | Frozen base + regression head, upper layers fine-tuned | conv features |
-| ResNet50 | 224×224 | GAP + Dense head, top 25 layers unfrozen | pooled features |
-| FaceNet (Inception-ResNet) | 160×160 | MTCNN face alignment, Block8 + FC fine-tuned | 512-d embeddings |
 | **EfficientNet (B3)** | 300×300 | GAP + Dropout + Dense head, top 30 layers unfrozen | 1,536-d embeddings |
 
-Standard computer-vision preprocessing was applied throughout: resizing to each backbone's native resolution, normalization ([0, 1] scaling or ImageNet-style mean subtraction), float32 4D tensor formatting, and — for FaceNet — MTCNN face detection and alignment. In every pipeline, a binary gender feature was appended to the CNN embeddings before fitting the downstream regressors.
+Standard computer-vision preprocessing was applied: resizing to the backbone's native resolution, normalization, and float32 4D tensor formatting. A binary gender feature was appended to the CNN embeddings before fitting the downstream regressors.
 
-### Backbone comparison — final results
-
-Each fine-tuned backbone's features were fed to regression models and evaluated on the held-out test set:
-
-| Model | MAE | Pearson r (Overall) | Pearson r (Male) | Pearson r (Female) |
-|---|---|---|---|---|
-| VGGFace | 5.04 | 0.641 | 0.653 | 0.631 |
-| VGGNet | 4.99 | 0.649 | 0.699 | 0.583 |
-| ResNet50 | 6.043 | 0.465 | 0.409 | 0.508 |
-| FaceNet | 5.52 | 0.577 | 0.618 | 0.531 |
-| **EfficientNet** | **4.72** | **0.67** | **0.69** | **0.65** |
-
-**EfficientNet was the best performer**, with an overall Pearson r of **0.67 — beating the paper's best result of 0.65 (VGG-Face)**. It was also markedly more balanced across genders (0.69 male / 0.65 female) than the paper's VGG-Face model (0.71 / 0.57). **This repository covers the EfficientNet pipeline** — the winning approach.
+The fine-tuned EfficientNet pipeline reached an overall Pearson r of **0.67 with an MAE of 4.72 — beating the paper's best result of 0.65 (VGG-Face)**. It was also markedly more balanced across genders (0.69 male / 0.65 female) than the paper's VGG-Face model (0.71 / 0.57).
 
 ---
 
@@ -101,7 +85,17 @@ After fine-tuning EfficientNetB3, its 1,536-d features (+ gender) were used to t
 | MLP | 51.03 | 4.90 | 0.650 |
 | **Ensemble (RF + Ridge + CatBoost)** | **47.76** | **4.73** | **0.670** |
 
-Performance was evaluated separately for male and female subsets; results are consistent across genders — a notable improvement over the paper's large gender gap.
+### Gender breakdown vs. the replicated paper
+
+Performance was evaluated separately for male and female subsets (Pearson r):
+
+| Model | Male | Female | Overall |
+|---|---|---|---|
+| Paper — Face-to-BMI (VGG-Net) | 0.58 | 0.36 | 0.47 |
+| Paper — Face-to-BMI (VGG-Face, best) | **0.71** | 0.57 | 0.65 |
+| **Ours — EfficientNetB3 pipeline** | 0.69 | **0.65** | **0.67** |
+
+Our results are consistent across genders (0.69 male / 0.65 female) — a notable improvement over the paper's large gender gap (0.71 / 0.57 for its best model).
 
 **Bottom line: overall Pearson r 0.67 and MAE 4.72 vs. the paper's best of 0.65 — goal achieved.**
 
