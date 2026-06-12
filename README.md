@@ -185,6 +185,34 @@ BMI-Estimation-From-Facial-Images/
 
 ---
 
+## Tech Stack
+
+### Computer Vision / Deep Learning
+
+- **TensorFlow / Keras** — core deep learning framework for the entire CV stage
+- **EfficientNet (B0–B7)** via `tensorflow.keras.applications` — pre-trained ImageNet backbones for transfer learning, with `efficientnet.preprocess_input` for model-specific normalization
+- **Keras image preprocessing & augmentation** — `ImageDataGenerator` and `load_img` for image loading, resizing to native resolution, and augmentation (rotation, shift, zoom, horizontal flip)
+- **TensorFlow Lite** — post-training quantization and `.tflite` export of the feature extractor for lightweight deployment
+
+### Machine Learning — regression on CNN features
+
+- **scikit-learn** — Ridge, SVR, Random Forest, KNN, MLP, `VotingRegressor` ensemble, plus train/test utilities, metrics, imputation, and pipelines
+- **XGBoost**, **LightGBM**, **CatBoost** — gradient-boosting regressors
+
+### Data & Evaluation
+
+- **NumPy** — float32 4D image tensors and feature vectors
+- **pandas** — labels CSV and results handling
+- **SciPy** — `pearsonr` (the paper's headline metric)
+
+### Visualization & Utilities
+
+- **Matplotlib** — training curves and result plots
+- **joblib** — persisting the Ridge regressor artifact
+- **Google Colab** — training environment (GPU runtime, Drive mounting)
+
+---
+
 ## Installation
 
 Python 3.11 recommended. The project was developed in Google Colab.
