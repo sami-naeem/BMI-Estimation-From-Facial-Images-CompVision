@@ -8,6 +8,34 @@ Predicts Body Mass Index (BMI) from a single facial photograph using deep-learni
 
 ---
 
+## Tech Stack
+
+### Computer Vision / Deep Learning
+
+- **TensorFlow / Keras** — core deep learning framework for the entire CV stage
+- **EfficientNet (B0–B7)** via `tensorflow.keras.applications` — pre-trained ImageNet backbones for transfer learning, with `efficientnet.preprocess_input` for model-specific normalization
+- **Keras image preprocessing & augmentation** — `ImageDataGenerator` and `load_img` for image loading, resizing to native resolution, and augmentation (rotation, shift, zoom, horizontal flip)
+- **TensorFlow Lite** — post-training quantization and `.tflite` export of the feature extractor for lightweight deployment
+
+### Machine Learning — regression on CNN features
+
+- **scikit-learn** — Ridge, SVR, Random Forest, KNN, MLP, `VotingRegressor` ensemble, plus train/test utilities, metrics, imputation, and pipelines
+- **XGBoost**, **LightGBM**, **CatBoost** — gradient-boosting regressors
+
+### Data & Evaluation
+
+- **NumPy** — float32 4D image tensors and feature vectors
+- **pandas** — labels CSV and results handling
+- **SciPy** — `pearsonr` (the paper's headline metric)
+
+### Visualization & Utilities
+
+- **Matplotlib** — training curves and result plots
+- **joblib** — persisting the Ridge regressor artifact
+- **Google Colab** — training environment (GPU runtime, Drive mounting)
+
+---
+
 ## Project Background
 
 BMI is a key health indicator, widely used in medical studies and treatments — but most publicly available BMI data is self-reported and often inaccurate. Traditionally, obtaining BMI data requires either accurate self-reporting or an in-person clinical measurement.
@@ -182,34 +210,6 @@ BMI-Estimation-From-Facial-Images/
 ├── Reference Journal Paper.pdf                       # Kocabey et al. (2017), ICWSM
 └── README.md
 ```
-
----
-
-## Tech Stack
-
-### Computer Vision / Deep Learning
-
-- **TensorFlow / Keras** — core deep learning framework for the entire CV stage
-- **EfficientNet (B0–B7)** via `tensorflow.keras.applications` — pre-trained ImageNet backbones for transfer learning, with `efficientnet.preprocess_input` for model-specific normalization
-- **Keras image preprocessing & augmentation** — `ImageDataGenerator` and `load_img` for image loading, resizing to native resolution, and augmentation (rotation, shift, zoom, horizontal flip)
-- **TensorFlow Lite** — post-training quantization and `.tflite` export of the feature extractor for lightweight deployment
-
-### Machine Learning — regression on CNN features
-
-- **scikit-learn** — Ridge, SVR, Random Forest, KNN, MLP, `VotingRegressor` ensemble, plus train/test utilities, metrics, imputation, and pipelines
-- **XGBoost**, **LightGBM**, **CatBoost** — gradient-boosting regressors
-
-### Data & Evaluation
-
-- **NumPy** — float32 4D image tensors and feature vectors
-- **pandas** — labels CSV and results handling
-- **SciPy** — `pearsonr` (the paper's headline metric)
-
-### Visualization & Utilities
-
-- **Matplotlib** — training curves and result plots
-- **joblib** — persisting the Ridge regressor artifact
-- **Google Colab** — training environment (GPU runtime, Drive mounting)
 
 ---
 
